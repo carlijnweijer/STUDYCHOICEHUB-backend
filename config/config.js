@@ -3,6 +3,10 @@ module.exports = {
   development: {
     url: process.env.ELEPHANT_SQL,
     dialect: "postgres",
+    dialectOptions: {
+      statement_timeout: 1000,
+      idle_in_transaction_session_timeout: 5000,
+    },
   },
   test: {
     username: "root",
