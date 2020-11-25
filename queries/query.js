@@ -1,4 +1,4 @@
-const Study = require("./models").study;
+const Study = require("../models").study;
 const studies = require("./crohoStudy.json");
 const studies2 = require("./crohoStudy2.json");
 
