@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      user.hasMany(models.answer);
+      user.hasMany(models.question);
     }
   }
   user.init(
@@ -17,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       lastName: { type: DataTypes.STRING, allowNull: false },
       email: { type: DataTypes.STRING, allowNull: false, unique: true },
       password: { type: DataTypes.STRING, allowNull: false },
-      role: DataTypes.ENUM("havo", "vwo", "hbo", "wo"),
+      role: DataTypes.ENUM("scholar", "student"),
       level: DataTypes.ENUM("havo", "vwo", "hbo", "wo"),
     },
     {
