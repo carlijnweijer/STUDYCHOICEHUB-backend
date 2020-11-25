@@ -9,6 +9,9 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+const authRouter = require("./routers/auth");
+app.use("/", authRouter);
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
 });
