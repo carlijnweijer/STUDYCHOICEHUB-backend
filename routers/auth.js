@@ -3,6 +3,7 @@ const { Router } = require("express");
 const { toJWT } = require("../auth/jwt");
 const authMiddleware = require("../auth/middleware");
 const User = require("../models/").user;
+const { SALT_ROUNDS } = require("../config/constants");
 
 const router = new Router();
 
@@ -33,16 +34,19 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { email, password, name } = req.body;
-  if (!email || !password || !name) {
-    return res.status(400).send("Please provide an email, password and a name");
+  const { firstName, lastName, email, password, role, level } = req.body;
+  if (!email || !password || !firstName || !lastName) {
+    return res.status(400).send("Please fill in all fields");
   }
 
   try {
     const newUser = await User.create({
+      firstName,
+      lastName,
       email,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
-      name,
+      role,
+      level,
     });
 
     delete newUser.dataValues["password"]; // don't send back the password hash
@@ -50,6 +54,7 @@ router.post("/signup", async (req, res) => {
     const token = toJWT({ userId: newUser.id });
 
     res.status(201).json({ token, ...newUser.dataValues });
+    console.log("newUser is ", newUser);
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
       return res
@@ -57,6 +62,8 @@ router.post("/signup", async (req, res) => {
         .send({ message: "There is an existing account with this email" });
     }
 
+    console.log("reqbody is ", req.body);
+    console.log("error is ", error);
     return res.status(400).send({ message: "Something went wrong, sorry" });
   }
 });

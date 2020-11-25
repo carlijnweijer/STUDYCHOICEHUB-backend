@@ -12,6 +12,6 @@ app.get("/", (req, res) => {
 const authRouter = require("./routers/auth");
 app.use("/", authRouter);
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
 });
