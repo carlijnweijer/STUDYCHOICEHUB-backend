@@ -5,11 +5,27 @@ const Study = require("../models").study;
 const Review = require("../models").review;
 
 router.get("/studies", async (req, res) => {
-  const limit = Math.min(req.query.limit || 5, 50);
-  //   const offset = req.query.offset || 0;
+  const limit = Math.min(req.query.limit || 20);
+  const offset = req.query.offset || 5;
 
   try {
-    const studies = await Study.findAll({ limit });
+    const studies = await Study.findAll({ limit, offset });
+    res.send(studies);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/studies/:sector", async (req, res) => {
+  const { sector } = req.params;
+
+  console.log("what is sector", sector);
+  try {
+    const studies = await Study.findAll({
+      where: {
+        crohoSector: sector,
+      },
+    });
     res.send(studies);
   } catch (error) {
     console.log(error);
