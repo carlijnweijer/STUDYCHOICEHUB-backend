@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       user.hasMany(models.answer);
       user.hasMany(models.question);
       user.hasMany(models.review);
-      user.hasMany(models.study_story);
+      user.hasMany(models.studyStory);
     }
   }
   user.init(

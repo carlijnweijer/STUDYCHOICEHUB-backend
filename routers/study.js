@@ -18,10 +18,14 @@ router.get("/studies", async (req, res) => {
 
 router.get("/studies/:sector", async (req, res) => {
   const { sector } = req.params;
+  const limit = Math.min(req.query.limit || 6);
+  const offset = req.query.offset || 5;
 
   console.log("what is sector", sector);
   try {
     const studies = await Study.findAll({
+      limit,
+      offset,
       where: {
         crohoSector: sector,
       },

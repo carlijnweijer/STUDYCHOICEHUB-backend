@@ -22,7 +22,7 @@ function createStudy({ crohoSector, isCurrent, rowkey, titleEn, titleNL }) {
 }
 
 function createStudies() {
-  const result = studies2.map((study) => {
+  const result = studies.map((study) => {
     return createStudy({
       crohoSector: study.crohoSector,
       isCurrent: study.isCurrent,
