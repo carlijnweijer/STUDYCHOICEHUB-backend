@@ -5,6 +5,7 @@ const { PORT } = require("./config/constants");
 
 const studyRouter = require("./routers/study");
 const authRouter = require("./routers/auth");
+const storyRouter = require("./routers/studyStory");
 
 const bodyParserMiddleWare = express.json();
 app.use(bodyParserMiddleWare);
@@ -17,6 +18,8 @@ app.get("/", (req, res) => {
 app.use("/", authRouter);
 
 app.use("/", studyRouter);
+
+app.use("/", storyRouter);
 
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
