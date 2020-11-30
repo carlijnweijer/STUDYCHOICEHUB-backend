@@ -7,6 +7,7 @@ const Review = require("../models").review;
 const StudyStory = require("../models").studyStory;
 const Question = require("../models").question;
 const Answer = require("../models").answer;
+const User = require("../models").user;
 
 router.get("/studies", async (req, res) => {
   const limit = Math.min(req.query.limit || 20);
@@ -81,7 +82,7 @@ router.get("/study/:id/questions", async (req, res) => {
       where: {
         studyId: id,
       },
-      include: [Answer],
+      include: [Answer, User],
     });
     res.send(questions);
   } catch (error) {
