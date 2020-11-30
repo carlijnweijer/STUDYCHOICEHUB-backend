@@ -15,6 +15,12 @@ module.exports = {
       questionId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "questions",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       userId: {
         type: Sequelize.INTEGER,

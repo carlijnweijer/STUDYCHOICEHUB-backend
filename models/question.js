@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       question.belongsTo(models.user);
       question.belongsTo(models.study);
+      question.hasMany(models.answer);
     }
   }
   question.init(
