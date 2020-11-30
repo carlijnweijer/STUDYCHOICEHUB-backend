@@ -3,6 +3,7 @@ const router = new Router();
 
 const Study = require("../models").study;
 const Review = require("../models").review;
+const StudyStory = require("../models").studyStory;
 
 router.get("/studies", async (req, res) => {
   const limit = Math.min(req.query.limit || 20);
@@ -41,7 +42,7 @@ router.get("/study/:id", async (req, res) => {
 
   console.log("what is study id", id);
   const study = await Study.findByPk(id, {
-    include: [Review],
+    include: [Review, StudyStory],
   });
 
   if (study === null) {

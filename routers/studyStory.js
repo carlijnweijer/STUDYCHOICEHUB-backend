@@ -21,4 +21,13 @@ router.post("/upload/studystory", async (req, res) => {
   }
 });
 
+router.get("/studystories", async (req, res) => {
+  try {
+    const studystories = await StudyStory.findAll();
+    res.send(studystories);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = router;
