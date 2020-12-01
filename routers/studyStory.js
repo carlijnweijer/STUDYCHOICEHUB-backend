@@ -14,7 +14,7 @@ router.post("/upload/studystory", async (req, res) => {
     });
 
     console.log("newstory", newStory);
-    res.status(201);
+    res.status(201).send(newStory);
   } catch (error) {
     console.log(error);
     return res.status(400).send({ message: "Something went wrong, sorry" });
