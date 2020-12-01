@@ -46,7 +46,11 @@ router.get("/study/:id", async (req, res) => {
 
   console.log("what is study id", id);
   const study = await Study.findByPk(id, {
-    include: [Review, StudyStory],
+    include: [
+      { model: Review, include: [User] },
+      { model: StudyStory },
+      { model: Question, include: [User, Answer] },
+    ],
   });
 
   if (study === null) {
