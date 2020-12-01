@@ -1,9 +1,13 @@
 const { Router } = require("express");
+const question = require("../models/question");
 const router = new Router();
 
 const Study = require("../models").study;
 const Review = require("../models").review;
 const StudyStory = require("../models").studyStory;
+const Question = require("../models").question;
+const Answer = require("../models").answer;
+const User = require("../models").user;
 
 router.get("/studies", async (req, res) => {
   const limit = Math.min(req.query.limit || 20);
@@ -42,13 +46,52 @@ router.get("/study/:id", async (req, res) => {
 
   console.log("what is study id", id);
   const study = await Study.findByPk(id, {
-    include: [Review, StudyStory],
+    include: [
+      { model: Review, include: [User] },
+      { model: StudyStory },
+      { model: Question, include: [User, Answer] },
+    ],
   });
 
   if (study === null) {
     return res.status(404).send({ message: "Study not Found" });
   }
   res.status(200).send({ message: "ok", study });
+});
+
+router.post("/study/:id/questions/ask", async (req, res) => {
+  const { id } = req.params;
+  const { content, userId } = req.body;
+
+  try {
+    const newQuestion = await Question.create({
+      content,
+      userId,
+      studyId: id,
+    });
+
+    console.log(newQuestion);
+    res.status(201).send(newQuestion);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send({ message: "Something went wrong, sorry" });
+  }
+});
+
+router.get("/study/:id/questions", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const questions = await Question.findAll({
+      where: {
+        studyId: id,
+      },
+      include: [Answer, User],
+    });
+    res.send(questions);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;

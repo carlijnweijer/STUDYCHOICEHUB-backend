@@ -25,6 +25,12 @@ module.exports = {
       studyId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "studies",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       schoolId: {
         type: Sequelize.INTEGER,

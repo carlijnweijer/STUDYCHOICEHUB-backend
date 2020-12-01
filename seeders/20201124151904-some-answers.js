@@ -30,7 +30,7 @@ module.exports = {
       {
         content:
           "Definitely, some subjects are a lot to study. A lot of people fail because they don't start early enough. I would say start early and ask questions while you can, make sure you really understand the material!",
-        userId: 3,
+        userId: 2,
         questionId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
