@@ -61,13 +61,13 @@ router.post("/study/:id/questions/ask", async (req, res) => {
 
   try {
     const newQuestion = await Question.create({
-      id,
       content,
       userId,
+      studyId: id,
     });
 
     console.log(newQuestion);
-    res.status(201);
+    res.status(201).send(newQuestion);
   } catch (error) {
     console.log(error);
     return res.status(400).send({ message: "Something went wrong, sorry" });
