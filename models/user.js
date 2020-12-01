@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       user.hasMany(models.question);
       user.hasMany(models.review);
       user.hasMany(models.studyStory);
+      user.belongsTo(models.study);
     }
   }
   user.init(
@@ -22,6 +23,8 @@ module.exports = (sequelize, DataTypes) => {
       password: { type: DataTypes.STRING, allowNull: false },
       role: DataTypes.ENUM("scholar", "student"),
       level: DataTypes.ENUM("havo", "vwo", "hbo", "wo"),
+      imageUrl: DataTypes.STRING,
+      studyId: DataTypes.INTEGER,
     },
     {
       sequelize,
