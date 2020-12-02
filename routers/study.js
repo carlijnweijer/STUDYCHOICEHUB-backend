@@ -7,10 +7,26 @@ const StudyStory = require("../models").studyStory;
 const Question = require("../models").question;
 const Answer = require("../models").answer;
 const User = require("../models").user;
+const { Op } = require("sequelize");
+
+router.get("/study", async (req, res) => {
+  try {
+    const study = await Study.findAll({
+      where: { titleEn: { [Op.iLike]: req.query.title + "%" } },
+    });
+    res.send(study);
+    console.log(study);
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .send({ message: "Something went wrong, sorry", body: title });
+  }
+});
 
 router.get("/studies", async (req, res) => {
-  const limit = Math.min(req.query.limit || 20);
-  const offset = req.query.offset || 5;
+  const limit = Math.min(req.query.limit || 8);
+  const offset = req.query.offset || 10;
 
   try {
     const studies = await Study.findAll({ limit, offset });
