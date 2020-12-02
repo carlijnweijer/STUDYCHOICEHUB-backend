@@ -99,21 +99,24 @@ router.post("/study/:id/questions/ask", async (req, res) => {
   }
 });
 
-// router.get("/study/:id/questions", async (req, res) => {
-//   const { id } = req.params;
+router.post("/study/:id/review", async (req, res) => {
+  const { id } = req.params;
+  const { content, userId, title } = req.body;
 
-//   try {
-//     const questions = await Question.findAll({
-//       where: {
-//         studyId: id,
-//       },
-//       include: [Answer, User],
-//     });
-//     res.send(questions);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
+  try {
+    const newReview = await Review.create({
+      title,
+      content,
+      userId,
+      studyId: id,
+    });
+    console.log(newReview);
+    res.status(201).send(newReview);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send({ message: "Something went wrong, sorry" });
+  }
+});
 
 router.post("/study/:id/questions/:questionId/answer", async (req, res) => {
   const { questionId } = req.params;

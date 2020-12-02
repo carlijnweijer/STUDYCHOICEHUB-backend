@@ -18,8 +18,6 @@ module.exports = (sequelize, DataTypes) => {
       content: { type: DataTypes.TEXT, allowNull: false },
       userId: { type: DataTypes.INTEGER, allowNull: false },
       studyId: { type: DataTypes.INTEGER, allowNull: false },
-      schoolId: { type: DataTypes.INTEGER, allowNull: false },
-      rating: { type: DataTypes.INTEGER, allowNull: false },
     },
     {
       sequelize,
