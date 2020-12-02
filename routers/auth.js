@@ -77,4 +77,23 @@ router.get("/me", authMiddleware, async (req, res) => {
   res.status(200).send({ ...req.user.dataValues });
 });
 
+router.patch("/myProfile", async (req, res) => {
+  try {
+    const { userId, studyId } = req.body;
+    const userToUpdate = await User.findByPk(userId);
+    console.log(studyId);
+    console.log(userToUpdate);
+    const updatedUser = await userToUpdate.update({
+      studyId,
+    });
+
+    console.log("what is updatedUser", updatedUser);
+    delete updatedUser.dataValues["password"];
+    res.send(updatedUser.dataValues);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send({ message: "Something went wrong, sorry" });
+  }
+});
+
 module.exports = router;
