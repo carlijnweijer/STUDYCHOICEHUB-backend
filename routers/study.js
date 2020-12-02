@@ -99,6 +99,15 @@ router.post("/study/:id/questions/ask", async (req, res) => {
   }
 });
 
+router.get("/reviews", async (req, res) => {
+  try {
+    const reviews = await Review.findAll();
+    res.send(reviews);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 router.post("/study/:id/review", async (req, res) => {
   const { id } = req.params;
   const { content, userId, title } = req.body;
