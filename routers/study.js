@@ -38,8 +38,8 @@ router.get("/studies", async (req, res) => {
 
 router.get("/studies/:sector", async (req, res) => {
   const { sector } = req.params;
-  const limit = Math.min(req.query.limit || 6);
-  const offset = req.query.offset || 5;
+  const limit = Math.min(req.query.limit || 20);
+  const offset = req.query.offset || 20;
 
   console.log("what is sector", sector);
   try {
